@@ -144,7 +144,7 @@ public class LoginController {
 				}
 				else 
 				{
-					System.out.println("Logowanie b³êdne");
+					//System.out.println("Logowanie b³êdne");
 					LblError.setText("B³êdne has³o lub login!");	
 					TFLogin.setText(null);
 					PFPass.setText(null);
@@ -153,6 +153,11 @@ public class LoginController {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			//System.out.println("Logowanie b³êdne");
+			LblError.setText("Proszê uzupe³niæ wszystkie pola!");	
+			TFLogin.setText(null);
+			PFPass.setText(null);
 		}
     
     }
@@ -163,7 +168,7 @@ public class LoginController {
     
     @FXML
     void ShowCommu(ActionEvent event) {
-    	System.out.println("Info");
+    	//System.out.println("Info");
     	JOptionPane.showMessageDialog(null, "Helpdesk \nE-mail: zxc@o2.pl \nTelefon: 1233221 ");
     }
     

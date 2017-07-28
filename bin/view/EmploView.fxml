@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmploController">
    <children>
       <MenuBar layoutY="6.0">
@@ -23,7 +22,8 @@
             <items>
               <MenuItem fx:id="MIAddUser" mnemonicParsing="false" onAction="#ShowMenuAddUser" text="Add New User" />
                   <MenuItem fx:id="MIDeleteUser" mnemonicParsing="false" onAction="#ShowMenuDeleteuser" text="Delete User" />
-                  <MenuItem fx:id="MIUpdateUser" mnemonicParsing="false" text="Update User" />
+                  <MenuItem fx:id="MIUpdateUser" mnemonicParsing="false" onAction="#ShowMenuUpdateUser" text="Update User" />
+                  <MenuItem fx:id="MIRefresTable" mnemonicParsing="false" onAction="#RefreshTableEmploo" text="Refresh" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -49,9 +49,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Podaj Login" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-            <Label text="Podaj Hasło" GridPane.rowIndex="1" />
-            <Label text="Wybierz role" GridPane.rowIndex="2" />
+            <Label fx:id="LblLogin" text="Podaj Login" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+            <Label fx:id="LblPass" text="Podaj Hasło" GridPane.rowIndex="1" />
+            <Label fx:id="LblRole" text="Wybierz role" GridPane.rowIndex="2" />
             <Label text="Podaj Imie" GridPane.rowIndex="3" />
             <Label text="Podaj Nazwisko" GridPane.rowIndex="4" />
             <Label text="Stawka Materiały" GridPane.rowIndex="5" />
@@ -68,8 +68,8 @@
          </children>
       </GridPane>
       <Button fx:id="BtnAddUser" layoutX="210.0" layoutY="369.0" mnemonicParsing="false" onMouseClicked="#AddUser" prefHeight="31.0" prefWidth="202.0" text="Dodaj" visible="false" />
-      <Label fx:id="LblError" layoutX="73.0" layoutY="348.0" prefHeight="21.0" prefWidth="339.0" />
-      <TableView fx:id="TVemploo" layoutX="71.0" layoutY="91.0" prefHeight="200.0" prefWidth="737.0" visible="false">
+      <Label fx:id="LblError" layoutX="73.0" layoutY="322.0" prefHeight="21.0" prefWidth="339.0" />
+      <TableView fx:id="TVemploo" layoutX="71.0" layoutY="91.0" onMousePressed="#FillInTF" prefHeight="200.0" prefWidth="737.0" visible="false">
         <columns>
           <TableColumn fx:id="TCID_E" prefWidth="42.0" text="ID_E" />
           <TableColumn fx:id="TCID_L" prefWidth="36.0" text="ID_L" />
@@ -80,6 +80,7 @@
             <TableColumn fx:id="TCRDelegation" prefWidth="117.0" text="RateDelegation" />
         </columns>
       </TableView>
-      <Button fx:id="BtnDeleteUser" layoutX="71.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#DeleteUser" prefHeight="31.0" prefWidth="131.0" text="Delete" visible="false" />
+      <Button fx:id="BtnDeleteUser" layoutX="71.0" layoutY="374.0" mnemonicParsing="false" onMouseClicked="#DeleteUser" prefHeight="0.0" prefWidth="110.0" text="Delete" visible="false" />
+      <Button fx:id="BtnUpdateUser" layoutX="210.0" layoutY="586.0" mnemonicParsing="false" onMouseClicked="#UpdateUser" prefHeight="25.0" prefWidth="130.0" text="Update" visible="false" />
    </children>
 </AnchorPane>

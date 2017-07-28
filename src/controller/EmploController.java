@@ -38,6 +38,9 @@ public class EmploController {
     private MenuItem MIUpdateUser;
 
     @FXML
+    private MenuItem MIRefresTable;
+    
+    @FXML
     private MenuItem MIInfo;
 
     @FXML
@@ -75,7 +78,19 @@ public class EmploController {
     private Button BtnDeleteUser;
     
     @FXML
+    private Button BtnUpdateUser;
+    
+    @FXML
     private Label LblError;
+    
+    @FXML
+    private Label LblLogin;
+
+    @FXML
+    private Label LblPass;
+
+    @FXML
+    private Label LblRole;
     
     @FXML
     private TableView<TableModel> TVemploo;
@@ -106,6 +121,7 @@ public class EmploController {
     	CBRole.getItems().addAll("emp","user");
     	CBRole.setVisibleRowCount(2);
     	CBRole.getSelectionModel().selectLast();
+    	MIRefresTable.setVisible(false);
     	
     }
 
@@ -115,39 +131,81 @@ public class EmploController {
     	BtnAddUser.setVisible(true);
     	TVemploo.setVisible(false);
     	BtnDeleteUser.setVisible(false);
+    	MIRefresTable.setVisible(false);
+    	BtnUpdateUser.setVisible(false);
+    	GridPane.setLayoutY(91);
+    	
+    	TFName.setText("");
+    	TFSurname.setText("");
+    	TFRateMate.setText("");
+    	TFRateSchool.setText("");
+    	TFRateDeleg.setText("");
     }
     
     @FXML
     void ShowMenuDeleteuser(ActionEvent event) throws SQLException {
+    	MIRefresTable.setVisible(true);
     	GridPane.setVisible(false);
     	BtnAddUser.setVisible(false);
-    	
-    	
     	TVemploo.setVisible(true);
     	BtnDeleteUser.setVisible(true);
+    	BtnUpdateUser.setVisible(false);
+    	ShowEmplo();
+    	TFName.setText("");
+    	TFSurname.setText("");
+    	TFRateMate.setText("");
+    	TFRateSchool.setText("");
+    	TFRateDeleg.setText("");
+    } 
+    
+    @FXML
+    void ShowMenuUpdateUser(ActionEvent event) throws SQLException {
+    	ShowEmplo();
+    	TVemploo.setVisible(true);
+    	GridPane.setVisible(true);
+    	GridPane.setLayoutY(210);
+   
+    	BtnDeleteUser.setVisible(false);
+    	BtnAddUser.setVisible(false);
+    	BtnDeleteUser.setVisible(false);
+    	BtnUpdateUser.setVisible(true);
     	
-    	Data = FXCollections.observableArrayList();
-    	ResultSet rs;
-    	Connection con = connDB.connection();
-    	String ShowEmploo = "Select * from employee;";
-    	rs = con.createStatement().executeQuery(ShowEmploo);
-    	while(rs.next())
-    	{
-    		Data.add(new TableModel(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
-    	}
-    	System.out.println(Data);
-    	TCID_E.setCellValueFactory(new PropertyValueFactory<TableModel,Integer>("ID_E"));
-    	TCID_L.setCellValueFactory(new PropertyValueFactory<TableModel,Integer>("ID_L"));
-    	TCFName.setCellValueFactory(new PropertyValueFactory<TableModel,String>("Name"));
-    	TCLName.setCellValueFactory(new PropertyValueFactory<TableModel,String>("Surname"));
-    	TCRMaterial.setCellValueFactory(new PropertyValueFactory<TableModel,String>("RateMat"));
-    	TCRSchooling.setCellValueFactory(new PropertyValueFactory<TableModel,String>("RateSchooling"));
-    	TCRDelegation.setCellValueFactory(new PropertyValueFactory<TableModel,String>("RateDelegate"));
-    	
-    	TVemploo.setItems(null);
-    	TVemploo.setItems(Data);
-    	
-    	
+    	LblLogin.setVisible(false);
+        LblPass.setVisible(false);
+        LblRole.setVisible(false);
+        
+        TFLogin.setVisible(false);
+        TFPassword.setVisible(false);
+        CBRole.setVisible(false);
+        
+        BtnUpdateUser.setLayoutY(465);
+        
+        MIRefresTable.setVisible(true);
+        
+        TFName.setText("");
+    	TFSurname.setText("");
+    	TFRateMate.setText("");
+    	TFRateSchool.setText("");
+    	TFRateDeleg.setText("");
+    }
+    
+    @FXML
+    void FillInTF(MouseEvent event) {
+    	TFName.setText(TVemploo.getSelectionModel().getSelectedItem().getName());
+    	TFSurname.setText(TVemploo.getSelectionModel().getSelectedItem().getSurname());
+    	TFRateMate.setText(TVemploo.getSelectionModel().getSelectedItem().getRateMat());
+    	TFRateSchool.setText(TVemploo.getSelectionModel().getSelectedItem().getRateSchooling());
+    	TFRateDeleg.setText(TVemploo.getSelectionModel().getSelectedItem().getRateDelegate());
+    }
+    
+    @FXML
+    void RefreshTableEmploo(ActionEvent event) throws SQLException {
+    	ShowEmplo();
+    	TFName.setText("");
+    	TFSurname.setText("");
+    	TFRateMate.setText("");
+    	TFRateSchool.setText("");
+    	TFRateDeleg.setText("");
     }
     
     @FXML
@@ -233,6 +291,70 @@ public class EmploController {
     @FXML
     void DeleteUser(MouseEvent event) {
     	
+    	PreparedStatement preparedStmt =null;
+    	Connection con = connDB.connection();
+    	
+    	try {
+    		int indexDel = TVemploo.getSelectionModel().getSelectedItem().getID_E();
+    		String DeleteUser = "delete from employee where ID_Emplo = "+indexDel;
+			preparedStmt = con.prepareStatement(DeleteUser);
+			preparedStmt.execute();
+			LblError.setVisible(false);
+			LblError.setText("");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (NullPointerException e) {
+			LblError.setVisible(true);
+			LblError.setText("Proszê wybraæ wiersz do usuniêcia");
+		}
+    	
+    }
+    
+    @FXML
+    void UpdateUser(MouseEvent event) {
+    	PreparedStatement preparedStmt =null;
+    	Connection con = connDB.connection();
+    	
+    	try {
+    		String UpdateUser = "Update employee set FirstName = ?, LastName = ?, MaterialPrepare = ?, scholing = ?, delegation = ? where ID_Emplo = ?";
+    		int indexUpdate = TVemploo.getSelectionModel().getSelectedItem().getID_E();
+			preparedStmt = con.prepareStatement(UpdateUser);
+			preparedStmt.setString(1, TFName.getText());
+			preparedStmt.setString(2, TFSurname.getText());
+			preparedStmt.setString(3, TFRateMate.getText());
+			preparedStmt.setString(4, TFRateSchool.getText());
+			preparedStmt.setString(5, TFRateDeleg.getText());
+			preparedStmt.setInt(6, indexUpdate);
+			preparedStmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    void ShowEmplo() throws SQLException
+    {
+    	Data = FXCollections.observableArrayList();
+    	ResultSet rs;
+    	Connection con = connDB.connection();
+    	String ShowEmploo = "Select * from employee;";
+    	rs = con.createStatement().executeQuery(ShowEmploo);
+    	while(rs.next())
+    	{
+    		Data.add(new TableModel(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)));
+    	}
+    	System.out.println(Data);
+    	TCID_E.setCellValueFactory(new PropertyValueFactory<TableModel,Integer>("ID_E"));
+    	TCID_L.setCellValueFactory(new PropertyValueFactory<TableModel,Integer>("ID_L"));
+    	TCFName.setCellValueFactory(new PropertyValueFactory<TableModel,String>("Name"));
+    	TCLName.setCellValueFactory(new PropertyValueFactory<TableModel,String>("Surname"));
+    	TCRMaterial.setCellValueFactory(new PropertyValueFactory<TableModel,String>("RateMat"));
+    	TCRSchooling.setCellValueFactory(new PropertyValueFactory<TableModel,String>("RateSchooling"));
+    	TCRDelegation.setCellValueFactory(new PropertyValueFactory<TableModel,String>("RateDelegate"));
+    	
+    	TVemploo.setItems(null);
+    	TVemploo.setItems(Data);
     }
     
 }

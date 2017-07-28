@@ -17,9 +17,9 @@ public class DBConn {
 			e.printStackTrace();
 			return null;
 		} catch (SQLException e) {
-			System.out.println("Nie uda³o siê ustanowiæ po³¹czenia, blad sk³adni");
+			System.out.println("Nie uda³o siê ustanowiæ po³¹czenia, serwer nie dostêpny");
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 		
