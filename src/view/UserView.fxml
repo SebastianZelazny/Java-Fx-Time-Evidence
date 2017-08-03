@@ -52,7 +52,7 @@
          </children>
       </GridPane>
       <Button fx:id="BtnConvert" layoutX="233.0" layoutY="242.0" mnemonicParsing="false" onMouseClicked="#Convert" prefHeight="31.0" prefWidth="168.0" text="Przelicz" />
-      <GridPane layoutX="65.0" layoutY="301.0" prefHeight="123.0" prefWidth="336.0">
+      <GridPane fx:id="GPDolary" layoutX="42.0" layoutY="92.0" prefHeight="253.0" prefWidth="530.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
