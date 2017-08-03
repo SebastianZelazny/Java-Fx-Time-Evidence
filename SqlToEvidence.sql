@@ -27,8 +27,16 @@ Month int,
 Number_H_Mat varchar(3),
 Number_H_Sch varchar(3),
 Number_H_Del varchar(3),
+Ear$Materials float,
+Ear$Schooling float,
+Ear$Delegations float,
+Ear$AllNetto float,
+Ear$AllBrutto float,
 foreign key (ID_Emp) references employee(ID_Emplo)
 );
+
+
+
 
 drop table logins;
 drop table Evidence;
@@ -38,9 +46,13 @@ insert into logins (Login,pass,role) values ('emplo1','emplo1','emp'),
 											('user1','user1','user'),
 											('user2','user2','user'),
 											('user3','user3','user');
+                                            
+
 
 select * from logins;
 select * from employee;
 select * from evidence;
 
 Select ID_Emplo from employee,logins where login='user7' and employee.ID_Login = logins.ID_L;
+
+select count(month) as Liczba_miesiecy from evidence where id_emp = 1 and month = 1;
