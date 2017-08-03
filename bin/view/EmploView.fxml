@@ -18,6 +18,11 @@
    <children>
       <MenuBar layoutY="6.0">
         <menus>
+            <Menu mnemonicParsing="false" text="System">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#Close" text="Close" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Users">
             <items>
               <MenuItem fx:id="MIAddUser" mnemonicParsing="false" onAction="#ShowMenuAddUser" text="Add New User" />
@@ -28,7 +33,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem fx:id="MIInfo" mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="MIInfo" mnemonicParsing="false" onAction="#ShowInfo" text="About" />
             </items>
           </Menu>
         </menus>

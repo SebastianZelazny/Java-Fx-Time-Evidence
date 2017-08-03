@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
    <children>
       <MenuBar layoutY="2.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="System">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
+          <Menu fx:id="MRozlicz" mnemonicParsing="false" onAction="#ShowMenuSettleUp" text="Rozlicz" />
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
@@ -27,5 +29,53 @@
           </Menu>
         </menus>
       </MenuBar>
+      <GridPane fx:id="GPSettle" layoutX="65.0" layoutY="92.0" prefHeight="123.0" prefWidth="336.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="21.0" prefWidth="166.0" text="Wybierz miesiąc" />
+            <Label text="Liczba H materiały" GridPane.rowIndex="1" />
+            <Label text="Liczba H Szkolenia" GridPane.rowIndex="2" />
+            <Label text="Liczba H Delegacje" GridPane.rowIndex="3" />
+            <ComboBox fx:id="CBMonth" prefHeight="31.0" prefWidth="180.0" GridPane.columnIndex="1" />
+            <TextField fx:id="TFMaterials" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="TFSchool" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="TFDelega" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <Button fx:id="BtnConvert" layoutX="233.0" layoutY="242.0" mnemonicParsing="false" onMouseClicked="#Convert" prefHeight="31.0" prefWidth="168.0" text="Przelicz" />
+      <GridPane layoutX="65.0" layoutY="301.0" prefHeight="123.0" prefWidth="336.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="\$ Materialy" />
+            <Label text="\$Szkolenia" GridPane.rowIndex="1" />
+            <Label text="\$Delegacje" GridPane.rowIndex="2" />
+            <Label text="Suma Netto" GridPane.rowIndex="3" />
+            <Label text="Suma Brutto" GridPane.rowIndex="4" />
+            <Label fx:id="Lbl$Materials" text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="Lbl$Schooling" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="Lbl$delegations" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="Lbl$Netto" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="Lbl$Brutto" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

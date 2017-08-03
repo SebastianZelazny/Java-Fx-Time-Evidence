@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import dbConnect.DBConn;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +30,25 @@ import model.LoginModel;
 public class LoginController {
 
 	private DBConn dbcon;
-	LoginModel loginModel;
+	private static String login = "";
+	private static String role = null;
+	static LoginModel loginModel;
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		LoginController.login = login;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		LoginController.role = role;
+	}
+
 	public void initialize()
     {
     	dbcon = new DBConn();
@@ -58,7 +77,7 @@ public class LoginController {
     @FXML
     private MenuItem MIHelpDesk;
     @FXML
-    void CheckPassPress(MouseEvent event) {
+    private void CheckPassPress(MouseEvent event) {
     	PFPass.setVisible(false);
     	TFCheckPass.setDisable(false);
     	TFCheckPass.setVisible(true);
@@ -66,19 +85,17 @@ public class LoginController {
     }
 
     @FXML
-    void CheckPassRelease(MouseEvent event) {
+   private void CheckPassRelease(MouseEvent event) {
     	PFPass.setVisible(true);
     	TFCheckPass.setVisible(false);
     	TFCheckPass.setDisable(false);
     }
     public ObservableList<LoginModel> Logins;
     @FXML
-    void Sign_in(MouseEvent event)  {
-    	Logins = FXCollections.observableArrayList();
+    private void Sign_in(MouseEvent event)  {
     	Connection con = dbcon.connection();
     	ResultSet rs;
-    	String login = "";
-    	String role = null;
+    	
 		try {
 			rs = con.createStatement().executeQuery("Select * From logins where Login = '"+TFLogin.getText()+"' and pass = '"+PFPass.getText()+"';");
 			/*	while(rs.next())
@@ -94,19 +111,19 @@ public class LoginController {
 		    	}*/
 				while(rs.next())
 				{
-					login =rs.getString(2);
-					role = rs.getString(4);
-					
+					loginModel = new LoginModel(rs.getString(1), rs.getString(2), rs.getString(3));
+					setLogin(rs.getString(2));
+					setRole(rs.getString(4));
 					
 				}
-				if(!login.equals(""))
+				if(!getLogin().equals(""))
 				{
 					
 					TFLogin.setText("");
 					PFPass.setText("");
 					System.out.println("Logowanie pomyœlne");	
-					System.out.println(role);
-					if(role.toLowerCase().equals("emp"))
+					System.out.println(getRole());
+					if(getRole().toLowerCase().equals("emp"))
 					{
 						System.out.println("Zalogowa³eœ siê jako employeer");
 						
@@ -135,6 +152,7 @@ public class LoginController {
 							stageTable.setScene(scene);
 							stageTable.setTitle("User Page");
 							stageTable.show();
+				
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -162,16 +180,14 @@ public class LoginController {
     
     }
     @FXML
-    void CloseProg(ActionEvent event) {
+    private void CloseProg(ActionEvent event) {
     	System.exit(1);
     }
     
     @FXML
-    void ShowCommu(ActionEvent event) {
+    private void ShowCommu(ActionEvent event) {
     	//System.out.println("Info");
     	JOptionPane.showMessageDialog(null, "Helpdesk \nE-mail: zxc@o2.pl \nTelefon: 1233221 ");
     }
-    
-    
 
 }

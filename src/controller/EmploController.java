@@ -1,17 +1,24 @@
 package controller;
 
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
+import javax.swing.JOptionPane;
+
 import dbConnect.DBConn;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -22,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import model.TableModel;
 
 public class EmploController {
@@ -127,6 +135,14 @@ public class EmploController {
 
     @FXML
     void ShowMenuAddUser(ActionEvent event) {
+    	LblLogin.setVisible(true);
+        LblPass.setVisible(true);
+        LblRole.setVisible(true);
+        
+        TFLogin.setVisible(true);
+        TFPassword.setVisible(true);
+        CBRole.setVisible(true);
+        
     	GridPane.setVisible(true);
     	BtnAddUser.setVisible(true);
     	TVemploo.setVisible(false);
@@ -140,6 +156,7 @@ public class EmploController {
     	TFRateMate.setText("");
     	TFRateSchool.setText("");
     	TFRateDeleg.setText("");
+    	
     }
     
     @FXML
@@ -187,6 +204,15 @@ public class EmploController {
     	TFRateMate.setText("");
     	TFRateSchool.setText("");
     	TFRateDeleg.setText("");
+    }
+    
+    @FXML
+    void ShowInfo(ActionEvent event) {
+    	JOptionPane.showMessageDialog(null, "Helpdesk \nE-mail: zxc@o2.pl \nTelefon: 1233221 ");
+    }
+    @FXML
+    void Close(ActionEvent event) {
+    	System.exit(1);
     }
     
     @FXML

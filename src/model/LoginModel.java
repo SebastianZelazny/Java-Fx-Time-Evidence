@@ -23,6 +23,9 @@ public class LoginModel {
 		this.role = role;
 	}
 	
+	public LoginModel()
+	{
+	}
 	public LoginModel(String login,String password,String role)
 	{
 		this.login = login;

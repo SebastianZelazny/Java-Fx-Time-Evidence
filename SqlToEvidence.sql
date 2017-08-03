@@ -19,27 +19,28 @@ scholing varchar(5),
 delegation varchar(5),
 foreign key (ID_Login) references Logins(ID_L)
 );
-#create table Evidence(
-#ID_Evidence int unique auto_increment primary key,
-#);
+
+create table Evidence(
+ID_Evidence int unique auto_increment primary key,
+ID_Emp int,
+Month int,
+Number_H_Mat varchar(3),
+Number_H_Sch varchar(3),
+Number_H_Del varchar(3),
+foreign key (ID_Emp) references employee(ID_Emplo)
+);
+
 drop table logins;
-drop table employee;
+drop table Evidence;
+
 insert into logins (Login,pass,role) values ('emplo1','emplo1','emp'),
 											('emplo2','emplo2','emp'),
 											('user1','user1','user'),
 											('user2','user2','user'),
 											('user3','user3','user');
 
-insert into employee (ID_Login,FirstName,LastName,MaterialPrepare,scholing,delegation)
-			value (3,'Szymon','Majewski','10','10','10');
-insert into employee (ID_Login,FirstName,LastName,MaterialPrepare,scholing,delegation)
-			value (4,'Tomek','Kot','10','10','10');
-
-insert into employee (ID_Login,FirstName,LastName,MaterialPrepare,scholing,delegation)
-			value (5,'Ala','Mysz','10','10','10');
-
-
 select * from logins;
 select * from employee;
+select * from evidence;
 
-delete from employee where ID_Emplo = 2;
+Select ID_Emplo from employee,logins where login='user7' and employee.ID_Login = logins.ID_L;
