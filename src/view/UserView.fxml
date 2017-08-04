@@ -18,13 +18,16 @@
         <menus>
           <Menu mnemonicParsing="false" text="System">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="MIClose" mnemonicParsing="false" onAction="#Close" text="Close" />
             </items>
           </Menu>
-          <Menu fx:id="MRozlicz" mnemonicParsing="false" onAction="#ShowMenuSettleUp" text="Rozlicz" />
+          <Menu fx:id="MRozlicz" mnemonicParsing="false" text="Rozlicz">
+               <items>
+                  <MenuItem fx:id="MIRozlicz" mnemonicParsing="false" onAction="#ShowMenuSettleUp" text="Rozlicz" />
+               </items></Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="MIAbout" mnemonicParsing="false" onAction="#ShowInfo" text="About" />
             </items>
           </Menu>
         </menus>
@@ -77,5 +80,6 @@
             <Label fx:id="Lbl$Brutto" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <Label fx:id="LBlInfo" layoutX="65.0" layoutY="49.0" prefHeight="21.0" prefWidth="507.0" />
    </children>
 </AnchorPane>
